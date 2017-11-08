@@ -9,7 +9,18 @@ const initialState = {
     pins: Array(10).fill(false)
   },
   players: [],
-  score: {}
+  scoring: {
+    1: { rolls: Array(2).fill(0), total: 0 },
+    2: { rolls: Array(2).fill(0), total: 0 },
+    3: { rolls: Array(2).fill(0), total: 0 },
+    4: { rolls: Array(2).fill(0), total: 0 },
+    5: { rolls: Array(2).fill(0), total: 0 },
+    6: { rolls: Array(2).fill(0), total: 0 },
+    7: { rolls: Array(2).fill(0), total: 0 },
+    8: { rolls: Array(2).fill(0), total: 0 },
+    9: { rolls: Array(2).fill(0), total: 0 },
+    10: { rolls: Array(3).fill(0), total: 0 }
+  }
 };
 
 // Reducers
