@@ -15,18 +15,18 @@ const initialState = {
     pinsLeft: Array(10).fill().map((pin,index) => index + 1)
   },
   players: [],
-  scoring: {
-    1: { rolls: Array(2).fill(0), total: 0 },
-    2: { rolls: Array(2).fill(0), total: 0 },
-    3: { rolls: Array(2).fill(0), total: 0 },
-    4: { rolls: Array(2).fill(0), total: 0 },
-    5: { rolls: Array(2).fill(0), total: 0 },
-    6: { rolls: Array(2).fill(0), total: 0 },
-    7: { rolls: Array(2).fill(0), total: 0 },
-    8: { rolls: Array(2).fill(0), total: 0 },
-    9: { rolls: Array(2).fill(0), total: 0 },
-    10: { rolls: Array(3).fill(0), total: 0 }
-  }
+  scoring: [
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(2).fill(0), total: 0 },
+    { rolls: Array(3).fill(0), total: 0 }
+  ]
 };
 
 // Reducers
@@ -36,6 +36,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         turn: {
+          ...state.turn,
           pinsLeft: roller(state.turn.pinsLeft)
         }
       };
@@ -43,7 +44,7 @@ export default (state = initialState, action) => {
     case SCORE:
       return {
         ...state,
-        scoring: scorer(state.scoring)
+        scoring: scorer(state.scoring, state.turn)
       };
 
     case NEXT_TURN:

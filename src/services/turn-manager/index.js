@@ -1,3 +1,4 @@
 export const nextTurn = (turn) => {
-  return turn;
+  const { roll } = turn;
+  return {...turn, roll: roll + 1}
 }

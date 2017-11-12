@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import Scoring from '../../components/scoring';
+import Scoring from '../scoring';
 import Pins from '../pins';
 import RollButton from '../roll-button';
 import './App.css';

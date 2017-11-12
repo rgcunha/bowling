@@ -6,7 +6,7 @@ import './Scoring.css';
 const Scoring = (props) => {
   const listFrameScorings = scoring => scoring.map((frameScoring, index) =>
     (
-      <Col key={index} sm={12} md={6}>
+      <Col key={index} xs={6} >
         <FrameScoring key={index} scoring={frameScoring} />
       </Col>
     )
