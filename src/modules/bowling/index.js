@@ -1,4 +1,10 @@
-export const ROLL = 'bowling/ROLL';
+import { roller } from '../../services/roller';
+import { scorer } from '../../services/scorer';
+import { nextTurn } from '../../services/turn-manager';
+
+export const ROLL       = 'bowling/ROLL';
+export const SCORE      = 'bowling/SCORE';
+export const NEXT_TURN  = 'bowling/NEXT_TURN';
 
 // State
 const initialState = {
@@ -6,7 +12,7 @@ const initialState = {
     player: null,
     frame: 1,
     roll: 1,
-    pins: Array(10).fill(false)
+    pinsLeft: Array(10).fill().map((pin,index) => index + 1)
   },
   players: [],
   scoring: {
@@ -28,7 +34,22 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ROLL:
       return {
-        ...state
+        ...state,
+        turn: {
+          pinsLeft: roller(state.turn.pinsLeft)
+        }
+      };
+
+    case SCORE:
+      return {
+        ...state,
+        scoring: scorer(state.scoring)
+      };
+
+    case NEXT_TURN:
+      return {
+        ...state,
+        turn: nextTurn(state.turn)
       };
 
     default:
@@ -41,9 +62,20 @@ const rollAction = () => ({
   type: ROLL
 });
 
+const scoreAction = () => ({
+  type: SCORE
+})
+
+const nextTurnAction = () => ({
+  type: NEXT_TURN
+})
+
 // Action Creators
-export const roll = () => (
-  (dispatch) => {
+export const roll = () => {
+  return (dispatch) => {
     dispatch(rollAction());
+    dispatch(scoreAction());
+    const nextTurn = () => dispatch(nextTurnAction());
+    setTimeout(nextTurn, 5000);
   }
-);
+};

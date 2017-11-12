@@ -1,0 +1,19 @@
+.pin {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  margin: 50px 0px;
+  line-height: 30px;
+  border: 1px solid black;
+}
+
+.pin--down {
+  color: red;
+  border-color: red;
+}
+
+.pin--up {
+  color: green;
+  border-color: green;
+}

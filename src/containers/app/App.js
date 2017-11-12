@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Scoring from '../../components/scoring';
-import Pins from '../../components/pins';
-import Roll from '../../components/actions/roll';
+import Pins from '../pins';
+import RollButton from '../roll-button';
 import './App.css';
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
             <Pins />
           </Col>
           <Col md={6}>
-            <Roll />
+            <RollButton />
           </Col>
         </Row>
       </div>
