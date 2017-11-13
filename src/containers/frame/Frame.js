@@ -1,9 +1,9 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Pins from '../../components/pins';
+import Frame from '../../components/frame';
 
 const mapStateToProps = state => ({
   pins: state.bowling.turn.pinsLeft
 });
 
-export default connect(mapStateToProps, null)(Pins);
+export default connect(mapStateToProps, null)(Frame);

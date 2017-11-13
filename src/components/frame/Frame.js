@@ -1,16 +1,16 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Pin from './pin';
-import './Pins.css';
+import './Frame.css';
 
-const Pins = (props) => {
+const Frame = (props) => {
   const { pins } = props;
 
   const isPinUp = pin => pins.includes(pin);
 
-  const grid = [[10, 9, 8, 7], [6, 5, 4], [3, 2], [1]];
+  const frame = [[10, 9, 8, 7], [6, 5, 4], [3, 2], [1]];
 
-  const renderGrid = () => grid.map((pins, index) => (<Row key={index}>{renderPins(pins)}</Row>));
+  const renderFrame = () => frame.map((pins, index) => (<Row key={index}>{renderPins(pins)}</Row>));
 
   const renderPins = (pins) => {
     const size = 12 / pins.length;
@@ -19,7 +19,11 @@ const Pins = (props) => {
 
   const renderPin = pin => <Pin key={pin} number={pin} isUp={isPinUp(pin)} />
 
-  return (<div className="pins">{renderGrid()}</div>);
+  return (
+    <div className="frame">
+      {renderFrame()}
+    </div>
+  );
 };
 
-export default Pins;
+export default Frame;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Scoring from '../scoring';
-import Pins from '../pins';
-import RollButton from '../roll-button';
+import Frame from '../frame';
+import Actions from '../../components/actions';
 import './App.css';
 
 const App = () => {
@@ -11,14 +11,13 @@ const App = () => {
   return (
     <div>
       <div className="container">
-        <h1>Bowling Scoring System</h1>
-        <Scoring scoring={scoring} />
+        <Scoring />
         <Row>
-          <Col md={6}>
-            <Pins />
+          <Col xs={12} md={6}>
+            <Frame />
           </Col>
-          <Col md={6}>
-            <RollButton />
+          <Col xs={12} md={6}>
+            <Actions />
           </Col>
         </Row>
       </div>

@@ -1,5 +1,6 @@
 .pin {
   display: inline-block;
+  background-image: url("/img/pin.png");
   height: 40px;
   width: 40px;
   padding: 5px;

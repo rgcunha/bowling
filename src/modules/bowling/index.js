@@ -1,10 +1,12 @@
 import { roller } from '../../services/roller';
+import { manualRoller } from '../../services/manual-roller';
 import { scorer } from '../../services/scorer';
 import { nextTurn } from '../../services/turn-manager';
 
-export const ROLL       = 'bowling/ROLL';
-export const SCORE      = 'bowling/SCORE';
-export const NEXT_TURN  = 'bowling/NEXT_TURN';
+export const ROLL         = 'bowling/ROLL';
+export const MANUAL_ROLL  = 'bowling/MANUAL_ROLL'
+export const SCORE        = 'bowling/SCORE';
+export const NEXT_TURN    = 'bowling/NEXT_TURN';
 
 // State
 const initialState = {
@@ -12,7 +14,8 @@ const initialState = {
     player: null,
     frame: 1,
     roll: 1,
-    pinsLeft: Array(10).fill().map((pin,index) => index + 1)
+    pinsLeft: Array(10).fill().map((pin,index) => index + 1),
+    inProgress: false
   },
   players: [],
   scoring: [
@@ -37,9 +40,20 @@ export default (state = initialState, action) => {
         ...state,
         turn: {
           ...state.turn,
-          pinsLeft: roller(state.turn.pinsLeft)
+          pinsLeft: roller(state.turn.pinsLeft),
+          inProgress: true
         }
       };
+
+    case MANUAL_ROLL:
+      return {
+        ...state,
+        turn: {
+          ...state.turn,
+          pinsLeft: manualRoller(state.turn.pinsLeft, action.payload),
+          inProgress: true
+        }
+      }
 
     case SCORE:
       return {
@@ -63,6 +77,11 @@ const rollAction = () => ({
   type: ROLL
 });
 
+const manualRollAction = (pinsKnocked) => ({
+  type: MANUAL_ROLL,
+  payload: pinsKnocked
+})
+
 const scoreAction = () => ({
   type: SCORE
 })
@@ -77,6 +96,16 @@ export const roll = () => {
     dispatch(rollAction());
     dispatch(scoreAction());
     const nextTurn = () => dispatch(nextTurnAction());
-    setTimeout(nextTurn, 5000);
+    setTimeout(nextTurn, 2000);
+  }
+};
+
+// Action Creators
+export const manualRoll = (pinsKnocked) => {
+  return (dispatch) => {
+    dispatch(manualRollAction(pinsKnocked));
+    dispatch(scoreAction());
+    const nextTurn = () => dispatch(nextTurnAction());
+    setTimeout(nextTurn, 3000);
   }
 };

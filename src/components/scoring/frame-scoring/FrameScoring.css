@@ -1,7 +1,27 @@
 .frame-scoring {
-  display: block;
+  display: inline-block;
   border: 1px solid black;
+  text-align: center;
+}
+
+.frame-scoring__frame {
+  line-height: 50px;
+}
+
+.frame-scoring__rolls {
   height: 50px;
   line-height: 50px;
-  text-align: center;
+}
+
+.frame-scoring__total {
+  height: 50px;
+  line-height: 50px;
+}
+
+.roll-scoring {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  border: 1px solid black;
 }

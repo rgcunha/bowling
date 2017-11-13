@@ -6,16 +6,12 @@ import './Scoring.css';
 const Scoring = (props) => {
   const listFrameScorings = scoring => scoring.map((frameScoring, index) =>
     (
-      <Col key={index} xs={6} >
-        <FrameScoring key={index} scoring={frameScoring} />
-      </Col>
+      <FrameScoring key={index} frame={index + 1} scoring={frameScoring} />
     )
   );
   return (
     <div className="scoring">
-      <Row>
-        {listFrameScorings(props.scoring)}
-      </Row>
+      {listFrameScorings(props.scoring)}
     </div>
   );
 };
