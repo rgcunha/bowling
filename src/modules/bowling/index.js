@@ -19,16 +19,16 @@ const initialState = {
   },
   players: [],
   scoring: [
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(2).fill(0), total: 0 },
-    { rolls: Array(3).fill(0), total: 0 }
+    { id: 1, rolls: Array(2).fill(0), total: 0 },
+    { id: 2, rolls: Array(2).fill(0), total: 0 },
+    { id: 3, rolls: Array(2).fill(0), total: 0 },
+    { id: 4, rolls: Array(2).fill(0), total: 0 },
+    { id: 5, rolls: Array(2).fill(0), total: 0 },
+    { id: 6, rolls: Array(2).fill(0), total: 0 },
+    { id: 7, rolls: Array(2).fill(0), total: 0 },
+    { id: 8, rolls: Array(2).fill(0), total: 0 },
+    { id: 9, rolls: Array(2).fill(0), total: 0 },
+    { id: 10, rolls: Array(3).fill(0), total: 0 }
   ]
 };
 
