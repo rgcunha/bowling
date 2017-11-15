@@ -3,9 +3,16 @@ import { Row, Col } from 'react-bootstrap';
 import './FrameScoring.css';
 
 const FrameScoring = (props) => {
-  const { rolls, total } = props.scoring;
+  const { scoring } = props;
+  const { rolls, total } = scoring;
+
   const renderRollScores = () => rolls.map((rollScore, rollIndex) => renderRollScore(rollIndex));
-  const renderRollScore = (rollIndex) => <span className="roll-scoring" key={rollIndex}>{rolls[rollIndex] ? rolls[rollIndex] : "-"}</span>;
+  const renderRollScore = (rollIndex) => <span className="roll-scoring" key={rollIndex}>{renderValue(rolls, rollIndex)}</span>;
+  const renderValue = (rolls, index) => {
+    if (scoring.isStrike() && index === 0) { return "X" }
+    if (scoring.isSpare() && index === 1) { return "/"}
+    return rolls[index] ? rolls[index] : "-"
+  }
   return (
     <div className="frame-scoring">
       <div className="frame-scoring__rolls">

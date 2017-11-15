@@ -1,3 +1,5 @@
+import FrameScoring from '../../models/frame-scoring';
+
 import { roller } from '../../services/roller';
 import { manualRoller } from '../../services/manual-roller';
 import { scorer } from '../../services/scorer';
@@ -19,16 +21,16 @@ const initialState = {
   },
   players: [],
   scoring: [
-    { id: 1, rolls: Array(2).fill(0), total: 0 },
-    { id: 2, rolls: Array(2).fill(0), total: 0 },
-    { id: 3, rolls: Array(2).fill(0), total: 0 },
-    { id: 4, rolls: Array(2).fill(0), total: 0 },
-    { id: 5, rolls: Array(2).fill(0), total: 0 },
-    { id: 6, rolls: Array(2).fill(0), total: 0 },
-    { id: 7, rolls: Array(2).fill(0), total: 0 },
-    { id: 8, rolls: Array(2).fill(0), total: 0 },
-    { id: 9, rolls: Array(2).fill(0), total: 0 },
-    { id: 10, rolls: Array(3).fill(0), total: 0 }
+    new FrameScoring({id: 1}),
+    new FrameScoring({id: 2}),
+    new FrameScoring({id: 3}),
+    new FrameScoring({id: 4}),
+    new FrameScoring({id: 5}),
+    new FrameScoring({id: 6}),
+    new FrameScoring({id: 7}),
+    new FrameScoring({id: 8}),
+    new FrameScoring({id: 9}),
+    new FrameScoring({id: 10, lastFrame: true})
   ]
 };
 
