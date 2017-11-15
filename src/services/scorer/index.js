@@ -3,8 +3,7 @@ import FrameScoring from '../../models/frame-scoring';
 const PINS_TOTAL = 10;
 
 export const scorer = (scoring, turn) => {
-  const revertedScoring = [...scoring].reverse();
-  const scoringWithActiveFrame = scoreActiveFrame(revertedScoring, turn);
+  const scoringWithActiveFrame = scoreActiveFrame(scoring, turn);
   const scoringWithOpenFrames = scoreOpenFrames(scoringWithActiveFrame, turn);
   return [...scoringWithOpenFrames].reverse();
 }
@@ -19,7 +18,7 @@ const scoreActiveFrame = (scoring, turn) => {
 }
 
 const scoreOpenFrames = (scoring, turn) => {
-  return [...scoring].map((frameScoring) => {
+  return [...scoring].reverse().map((frameScoring) => {
     if (!isActiveFrame(frameScoring.id, turn) && frameScoring.isWaitingForFrameScores()) {
       return newOpenFrameScoring(frameScoring, scoring, turn);
     }
@@ -52,9 +51,24 @@ const newOpenFrameScoring = (frameScoring, scoring, turn) => {
 
 const newOpenFrameTotal = (frameScoring, scoring, turn) => {
   const { total, id } = frameScoring;
-  const nextFrameScoring = scoring.find((frameScoring) => frameScoring.id === id + 1);
-  if (frameScoring.isStrike() && isFirstRoll(turn.roll)) { return total; }
-  return PINS_TOTAL + nextFrameScoring.score();
+  const numberOfExtraRolls = frameScoring.isStrike() ? 2 : 1;
+  const extraRolls = nextRollScores(frameScoring, scoring, numberOfExtraRolls);
+  if (extraRolls) {
+    return PINS_TOTAL + extraRolls.reduce((total, score) => total + score);
+  }
+  return null;
+}
+
+
+const nextRollScores = (currentFrame, scoring, numberOfRolls) => {
+  const remainingScoring = scoring.slice(currentFrame.id, scoring.length);
+  const rollsScores = remainingScoring
+    .map((frameScoring) => frameScoring.rolls)
+    .reduce((acumulator, rolls) => acumulator.concat(rolls))
+    .filter((rollScore) => rollScore !== null)
+
+  if (rollsScores.length < numberOfRolls) { return null; }
+  return rollsScores.slice(0, numberOfRolls)
 }
 
 const currentRollScore = (rolls, turn) => {
