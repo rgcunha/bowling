@@ -3,19 +3,17 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
 const RandomRoll = (props) => {
-  const { onRoll, turnInProgress, gameInProgress } = props;
-  const isDisabled = () => turnInProgress || !gameInProgress;
+  const { onRoll, disabled } = props;
   return (
     <div className="roll-button">
-      <Button className="btn btn-primary" disabled={isDisabled()} onClick={onRoll}>Random Roll</Button>
+      <Button className="btn btn-primary" disabled={disabled} onClick={onRoll}>Random Roll</Button>
     </div>
   )
 };
 
 RandomRoll.propTypes = {
   onRoll: PropTypes.func.isRequired,
-  turnInProgress: PropTypes.bool.isRequired,
-  gameInProgress: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default RandomRoll;

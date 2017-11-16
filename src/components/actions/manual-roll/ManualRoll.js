@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 const ManualRoll = (props) => {
-  const { onManualRoll, turn, gameInProgress } = props;
-  const { inProgress, pinsLeft } = turn;
+  const { onRoll, pinsLeft, disabled } = props;
   const scoreOptions = [0].concat(pinsLeft.map((pin,index) => index + 1));
-  const listOptions = () => scoreOptions.map((option) => <MenuItem key={option} onClick={() => onManualRoll(option)} eventKey={option}>{option}</MenuItem>);
-  const isDisabled = () => turn.inProgress || !gameInProgress;
+  const listOptions = () => scoreOptions.map((option) => <MenuItem key={option} onClick={() => onRoll(option)} eventKey={option}>{option}</MenuItem>);
   return (
-    <div className='score-select'>
-      <DropdownButton id='score-select' title="Manual Roll" bsStyle="primary" disabled={isDisabled()}>
+    <div className='manual-roll'>
+      <DropdownButton id='manual-roll' title="Manual Roll" bsStyle="primary" disabled={disabled}>
         {listOptions()}
       </DropdownButton>
     </div>
@@ -18,9 +16,9 @@ const ManualRoll = (props) => {
 };
 
 ManualRoll.propTypes = {
-  onManualRoll: PropTypes.func.isRequired,
-  turn: PropTypes.object.isRequired,
-  gameInProgress: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
+  onRoll: PropTypes.func.isRequired,
+  pinsLeft: PropTypes.array.isRequired
 };
 
 export default ManualRoll;
