@@ -11,7 +11,7 @@ const FrameScoring = (props) => {
   const renderValue = (rolls, index) => {
     if (scoring.isStrike() && index === 0) { return "X" }
     if (scoring.isSpare() && index === 1) { return "/"}
-    return rolls[index] ? rolls[index] : "-"
+    return rolls[index] === null ? "-" : rolls[index]
   }
   return (
     <div className="frame-scoring">

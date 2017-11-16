@@ -1,17 +1,17 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import RollButton from '../../containers/roll-button';
-import ScoreSelect from '../../containers/score-select';
+import RandomRoll from '../../containers/random-roll';
+import ManualRoll from '../../containers/manual-roll';
 import './Actions.css';
 
 const Actions = () => (
     <div className="actions">
       <Row>
         <Col xs={12} md={6}>
-          <RollButton />
+          <RandomRoll />
         </Col>
         <Col xs={12} md={6}>
-          <ScoreSelect />
+          <ManualRoll />
         </Col>
       </Row>
     </div>

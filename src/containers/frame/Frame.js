@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Frame from '../../components/frame';
 
 const mapStateToProps = state => ({
-  pins: state.bowling.turn.pinsLeft
+  pins: state.game.turn.pinsLeft
 });
 
 export default connect(mapStateToProps, null)(Frame);

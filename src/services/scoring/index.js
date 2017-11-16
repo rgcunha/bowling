@@ -2,10 +2,10 @@ import FrameScoring from '../../models/frame-scoring';
 
 const PINS_TOTAL = 10;
 
-export const scorer = (scoring, turn) => {
+export const score = (scoring, turn) => {
   const scoringWithActiveFrame = scoreActiveFrame(scoring, turn);
   const scoringWithOpenFrames = scoreOpenFrames(scoringWithActiveFrame, turn);
-  return [...scoringWithOpenFrames].reverse();
+  return scoringWithOpenFrames;
 }
 
 const scoreActiveFrame = (scoring, turn) => {
@@ -18,12 +18,15 @@ const scoreActiveFrame = (scoring, turn) => {
 }
 
 const scoreOpenFrames = (scoring, turn) => {
-  return [...scoring].reverse().map((frameScoring) => {
-    if (!isActiveFrame(frameScoring.id, turn) && frameScoring.isWaitingForFrameScores()) {
-      return newOpenFrameScoring(frameScoring, scoring, turn);
-    }
-    return frameScoring;
-  })
+  return [...scoring]
+    .reverse()
+    .map((frameScoring) => {
+      if (!isActiveFrame(frameScoring.id, turn) && frameScoring.isWaitingForFrameScores()) {
+        return newOpenFrameScoring(frameScoring, scoring, turn);
+      }
+      return frameScoring;
+    })
+    .reverse()
 }
 
 const isActiveFrame = (id, turn) => id === turn.frame;
@@ -58,7 +61,6 @@ const newOpenFrameTotal = (frameScoring, scoring, turn) => {
   }
   return null;
 }
-
 
 const nextRollScores = (currentFrame, scoring, numberOfRolls) => {
   const remainingScoring = scoring.slice(currentFrame.id, scoring.length);
