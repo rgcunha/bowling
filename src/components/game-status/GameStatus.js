@@ -6,7 +6,7 @@ const GameStatus = (props) => {
   const renderStatus = () => (
     inProgress ?
       <p>Game in progress!</p> :
-      <p>Game Over! Please refresh the page to create a new game</p>
+      <p>Game over! Please refresh the page to create a new game.</p>
   )
   return (
     <div className="game-status">

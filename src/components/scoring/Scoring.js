@@ -4,14 +4,20 @@ import FrameScoring from './frame-scoring';
 import './Scoring.css';
 
 const Scoring = (props) => {
-  const listFrameScorings = scoring => scoring.map((frameScoring, index) =>
-    (
-      <FrameScoring key={index} frame={index + 1} scoring={frameScoring} />
-    )
-  );
+  const { scoring } = props;
+  const total = scoring
+    .map(frameScoring => frameScoring.total)
+    .reduce((total, frameScore) => total + frameScore);
+  const listFrameScorings = scoring => scoring.map((frameScoring) => {
+    const { id } = frameScoring;
+    return <li className="scoring__frame-scoring" key={id}><FrameScoring key={id} frame={id} scoring={frameScoring} /></li>
+  });
   return (
     <div className="scoring">
-      {listFrameScorings(props.scoring)}
+      <ul className="scoring__frames-scoring">
+        {listFrameScorings(scoring)}
+      </ul>
+      <p className="scoring__total">Total: {total}</p>
     </div>
   );
 };

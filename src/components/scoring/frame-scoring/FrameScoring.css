@@ -1,6 +1,5 @@
 .frame-scoring {
   display: inline-block;
-  border: 1px solid black;
   text-align: center;
 }
 
@@ -16,6 +15,7 @@
 .frame-scoring__total {
   height: 50px;
   line-height: 50px;
+  border: 1px solid black;
 }
 
 .roll-scoring {
