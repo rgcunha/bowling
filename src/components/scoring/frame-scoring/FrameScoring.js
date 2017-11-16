@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap';
 import './FrameScoring.css';
 
@@ -23,6 +24,10 @@ const FrameScoring = (props) => {
       </div>
     </div>
   )
+};
+
+FrameScoring.propTypes = {
+  scoring: PropTypes.object.isRequired
 };
 
 export default FrameScoring;

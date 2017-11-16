@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col } from 'react-bootstrap';
 import FrameScoring from './frame-scoring';
 import './Scoring.css';
@@ -20,6 +21,10 @@ const Scoring = (props) => {
       <p className="scoring__total">Total: {total}</p>
     </div>
   );
+};
+
+Scoring.propTypes = {
+  scoring: PropTypes.array.isRequired
 };
 
 export default Scoring;
