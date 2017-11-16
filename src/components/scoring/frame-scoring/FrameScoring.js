@@ -9,7 +9,7 @@ const FrameScoring = (props) => {
   const renderRollScores = () => rolls.map((rollScore, rollIndex) => renderRollScore(rollIndex));
   const renderRollScore = (rollIndex) => <span className="roll-scoring" key={rollIndex}>{renderValue(rolls, rollIndex)}</span>;
   const renderValue = (rolls, index) => {
-    if (scoring.isStrike() && index === 0) { return "X" }
+    if (scoring.rolls[index] === 10) { return "X" }
     if (scoring.isSpare() && index === 1) { return "/"}
     return rolls[index] === null ? "-" : rolls[index]
   }

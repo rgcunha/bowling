@@ -4,8 +4,8 @@ const PINS_TOTAL = 10;
 
 export const score = (scoring, turn) => {
   const scoringWithActiveFrame = scoreActiveFrame(scoring, turn);
-  const scoringWithOpenFrames = scoreOpenFrames(scoringWithActiveFrame, turn);
-  return scoringWithOpenFrames;
+  const scoringWithWaitingFrames = scoreWaitingFrames(scoringWithActiveFrame, turn);
+  return scoringWithWaitingFrames;
 }
 
 const scoreActiveFrame = (scoring, turn) => {
@@ -17,12 +17,12 @@ const scoreActiveFrame = (scoring, turn) => {
   })
 }
 
-const scoreOpenFrames = (scoring, turn) => {
+const scoreWaitingFrames = (scoring, turn) => {
   return [...scoring]
     .reverse()
     .map((frameScoring) => {
       if (!isActiveFrame(frameScoring.id, turn) && frameScoring.isWaitingForFrameScores()) {
-        return newOpenFrameScoring(frameScoring, scoring, turn);
+        return newWaitingFrameScoring(frameScoring, scoring, turn);
       }
       return frameScoring;
     })
@@ -33,7 +33,7 @@ const isActiveFrame = (id, turn) => id === turn.frame;
 
 const newActiveFrameScoring = (frameScoring, turn) => {
   const { total, rolls } = frameScoring;
-  const newScore = currentRollScore(rolls, turn);
+  const newScore = currentRollScore(frameScoring, turn);
   return new FrameScoring({
     id: frameScoring.id,
     rolls: newRollsScoring([...rolls], turn, newScore)
@@ -44,15 +44,15 @@ const newRollsScoring = (rolls, turn, newScore) => (
   rolls.map((oldScore, index) => index + 1 === turn.roll ? newScore : oldScore)
 )
 
-const newOpenFrameScoring = (frameScoring, scoring, turn) => {
+const newWaitingFrameScoring = (frameScoring, scoring, turn) => {
   return new FrameScoring({
     id: frameScoring.id,
     rolls: frameScoring.rolls,
-    total: newOpenFrameTotal(frameScoring, scoring, turn)
+    total: newWaitingFrameTotal(frameScoring, scoring, turn)
   });
 }
 
-const newOpenFrameTotal = (frameScoring, scoring, turn) => {
+const newWaitingFrameTotal = (frameScoring, scoring, turn) => {
   const { total, id } = frameScoring;
   const numberOfExtraRolls = frameScoring.isStrike() ? 2 : 1;
   const extraRolls = nextRollScores(frameScoring, scoring, numberOfExtraRolls);
@@ -73,14 +73,17 @@ const nextRollScores = (currentFrame, scoring, numberOfRolls) => {
   return rollsScores.slice(0, numberOfRolls)
 }
 
-const currentRollScore = (rolls, turn) => {
-  const { roll, pinsLeft } = turn;
-  const pinsKnocked = PINS_TOTAL - pinsLeft.length;
-  if (isFirstRoll(roll)) { return pinsKnocked }
-  return pinsKnocked - previousRollScore(rolls, roll);
+export const currentRollScore = (frameScoring, turn) => {
+ const { roll, pinsLeft } = turn;
+ const pinsKnocked = PINS_TOTAL - pinsLeft.length;
+ if (isFirstRoll(roll)) { return pinsKnocked; }
+ const previousScore = previousRollScore(frameScoring, roll);
+ if ([10, 20].includes(frameScoring.score())) { return pinsKnocked; }
+ return pinsKnocked - previousScore;
 }
 
-const previousRollScore = (rolls, roll) => {
+const previousRollScore = (frameScoring, roll) => {
+  const { rolls } = frameScoring;
   if (isFirstRoll(roll)) { return 0; }
   return rolls[roll - 2];
 }

@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         inProgress: !isGameOver(state.scoring, state.turn),
-        turn: nextTurn(state.turn)
+        turn: nextTurn(state.turn, state.scoring)
       };
 
     default:

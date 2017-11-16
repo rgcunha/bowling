@@ -32,20 +32,37 @@ export default class FrameScoring {
     return this._total;
   }
 
+  isLast() {
+    return this._rolls.length === 3;
+  }
+
   isStrike() {
     return this._rolls[0] === 10;
   }
 
+  isDoubleStrike() {
+    return this.isStrike() && this._rolls[1] === 10;
+  }
+
   isSpare() {
-    return this.score() === 10 && !this.isStrike();
+    return (this._rolls[0] + this._rolls[1]) === 10 && !this.isStrike();
   }
 
   isSpecialScore() {
-    return this.isSpare() || this.isStrike();
+    return this.isSpare() || this.isStrike() || this.isDoubleStrike();
   }
 
   isOpen() {
+    if (this.isLast()) {
+      return this.isLastFrameOpen();
+    }
     return this.isSpecialScore() || (this.score() < 10 && this.hasUnfinishedRolls());
+  }
+
+  isLastFrameOpen() {
+    if (!this.hasUnfinishedRolls()) { return false; }
+    if (this._rolls[1] && this.score() < 10) { return false; }
+    return true;
   }
 
   hasUnfinishedRolls() {
@@ -53,6 +70,7 @@ export default class FrameScoring {
   }
 
   isWaitingForFrameScores() {
+    if (this.isLast()) { return false; }
     return this.isSpecialScore() && this._total === null;
   }
 
