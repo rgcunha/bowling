@@ -1,11 +1,14 @@
 .pin {
   display: inline-block;
   background-image: url("/img/pin.png");
-  height: 40px;
-  width: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 60px;
+  width: 60px;
   padding: 5px;
-  margin: 50px 0px;
-  line-height: 30px;
+  margin: 40px 0px;
+  font-size: 10px;
+  line-height: 60px;
   border: 1px solid black;
 }
 
